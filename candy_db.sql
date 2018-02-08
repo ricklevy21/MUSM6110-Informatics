@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `candy`
 --
+CREATE DATABASE `candy_db`
 
 CREATE TABLE `candy` (
   `candy_id` int(11) NOT NULL,
