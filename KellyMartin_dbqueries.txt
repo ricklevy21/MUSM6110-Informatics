@@ -1,0 +1,39 @@
+*2 select queries that join multiple tables 
+
+SELECT jewelry.catalog_number, brand.brand
+FROM jewelry
+JOIN brand on jewelry.brand_id = brand.brand_id;
+
+SELECT jewelry.catalog_number, jewelrytype.jewelrytype
+FROM jewelry
+JOIN jewelrytype on jewelry.jewelrytype_id = jewelrytype.jewelrytype_id;
+
+*1 insert into query that adds data to a table
+
+INSERT INTO jewelry (catalog_number, jewelrytype_id, jewelrycategory_id, brand_id)
+VALUES
+(51,2,1,4)
+
+*1 update query that changes data within a table
+
+UPDATE jewelrycolor
+SET color_id = 14
+WHERE catalog_number = 1
+
+*1 select query that uses a where clause
+
+SELECT *
+FROM jewelry
+WHERE jewelrycategory_id = 2;
+
+*1 select query that uses a where and an and clause
+
+SELECT *
+FROM jewelry
+WHERE jewelrycategory_id = 1 AND jewelrytype_id = 2;
+
+*1 select query that uses an order by clause 
+
+SELECT *
+FROM stone
+ORDER BY stone;
