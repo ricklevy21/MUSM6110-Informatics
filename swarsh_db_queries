@@ -1,0 +1,37 @@
+2 select queries that join multiple tables
+
+SELECT main_table.date, main_table.catalogue_number, scientific_name.scientific_name
+FROM main_table
+JOIN scientific_name ON main_table.scientific_name_id = scientific_name.scientific_name_id
+
+SELECT scientific_name.scientific_name, family.family, family.order_taxonomy
+FROM family
+JOIN scientific_name ON scientific_name.family_id = family.family_id
+
+1 INSERT query that adds data to a table
+
+INSERT INTO habitat
+VALUES (14, 'shortgrass prairie')
+
+1 UPDATE query that changes data within a table
+
+UPDATE habitat
+SET habitat = 'shortgrass prairie'
+WHERE habitat_id = 4
+
+1 SELECT query that uses a WHERE clause
+
+SELECT * FROM `main_table` WHERE location_id = 1
+
+1 SELECT query that uses a WHERE and an AND clause
+
+SELECT family, order_taxonomy
+FROM `family` WHERE family = 'hydrangeaceae'
+AND order_taxonomy = 'Cornales'
+
+1 SELECT query that uses and ORDER BY clause
+
+SELECT scientific_name
+FROM scientific_name
+ORDER BY scientific_name ASC
+
