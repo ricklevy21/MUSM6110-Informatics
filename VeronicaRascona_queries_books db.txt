@@ -1,0 +1,48 @@
+-----2 SELECT queries that join multiple tables
+SELECT books.publishing_year, genre.genre
+FROM books 
+JOIN genre ON genre.genre_id = books.genre_id;
+
+SELECT books.book_title, subject.subject
+FROM books 
+JOIN book_subject ON books.book_id = book_subject.book_id
+JOIN subject ON subject.subject_id = book_subject.subject_id
+WHERE books.book_title = "dracula";
+
+
+-----1 INSERT INTO query that adds data to a table
+INSERT INTO book_editor (book_id, editor_id)
+VALUES
+(1, 1),
+(1, 2),
+(8, 3);
+
+
+-----1 UPDATE query that changes data within a table 
+UPDATE book_author 
+SET author_id = 1 
+WHERE book_id = 2;
+
+
+-----1 SELECT query that uses a WHERE clause
+SELECT books.book_title, binding.binding
+FROM books 
+JOIN binding ON books.binding_id = binding.binding_id
+WHERE books.book_title = "dracula";
+
+
+-----1 SELECT query that uses a WHERE and an AND clause
+SELECT books.book_title, author.author
+FROM books
+JOIN book_author ON books.book_id = book_author.book_id
+JOIN author ON author.author_id = book_author.author_id
+WHERE book_author.author_id = 2
+AND books.publishing_year = 1997;
+
+
+-----1 SELECT query that uses an ORDER BY clause
+SELECT books.book_title, binding.binding
+FROM books 
+JOIN binding ON books.binding_id = binding.binding_id
+ORDER BY book_title;
+
