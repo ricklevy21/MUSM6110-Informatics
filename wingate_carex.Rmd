@@ -1,0 +1,47 @@
+---
+title: "Jan Wingate's Collections of Carex in Colorado"
+author: "Rick Levy"
+date: "Tuesday, April 17, 2018"
+output: html_document
+---
+```{r setup, echo=FALSE}
+options(warn=-1)
+library(ggplot2)
+```
+
+```{r, results='hide', echo=FALSE}
+jan_carex <- read.csv(file="jan_carex.csv")
+
+#define window of map
+long_colorado <- c(-125, -65)
+lat_colorado <- c(20, 50)
+
+```
+---
+This is a summary of Janet L. Wingates herbarium specimens of the genus Carex.
+
+We analyzed all the records for the genus Carex colleccted by Janet L. Wingate found in
+[SEINet](http://http://swbiodiversity.org).
+
+There were a total of (N = `r nrow(jan_carex)`) specimens that were georeferenced.
+
+```{r map, echo=FALSE}
+world_map <- map_data("usa")
+
+ggplot(jan_carex) + annotation_map(world_map, fill="gray40", colour="gray40") +
+    geom_point(aes(x=decimalLongitude, y=decimalLatitude, color=specificEpithet),
+               position=position_jitter(width=0.2, height=0.2)) +
+    theme(panel.background = element_rect(fill="aliceblue"),
+          legend.position = "none") +
+    coord_map(projection = "mercator", orientation=c(90, 160, 0),
+              xlim=long_colorado,  # limits on longitude
+              ylim=lat_colorado) + # limits on latitude
+   xlab("Longitude") + ylab("Latitude")
+
+
+ggplot(jan_carex) +
+  geom_bar(mapping = aes(x=scientificName)) +
+  labs(x="Species",y="Number of Specimens",title="Numberof Specimens by Species")+
+  theme (axis.text.x = element_text(size = 4, angle = 90,hjust = 1, vjust = 0))
+
+
