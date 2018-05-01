@@ -1,0 +1,63 @@
+--3 SELECT JOIN queries with one OR clause and two WHERE clauses 
+
+SELECT masks.Object_Name, countries.Country
+FROM masks
+JOIN countries ON masks.Country_ID = countries.Country_ID
+;
+
+ 
+SELECT masks.Object_Name, materials.Materials
+FROM masks 
+JOIN object_materials ON masks.Object_ID = object_materials.Object_ID
+JOIN materials ON object_materials.Materials_ID = object_materials.Materials_ID
+WHERE masks.Object_Name = "Kachina_Mask_Cactus"
+;
+
+SELECT masks.Object_Name, materials.Materials
+FROM masks 
+JOIN object_materials ON masks.Object_ID = object_materials.Object_ID
+JOIN materials ON object_materials.Materials_ID = object_materials.Materials_ID
+WHERE masks.Object_Name = "Kachina_Mask_Cactus" 
+OR masks.Object_Name = "Mask_North_Wind_Spirit"
+;
+
+-- 1 WHERE and AND query. I excluded the Good Natured Spirit Mask where the value was greater than 16 in Masks.Object_ID
+
+SELECT masks.Locale_ID, masks.Object_ID, masks.Object_Name, localities.Locality_ID
+FROM masks 
+JOIN localities ON masks.Locale_ID= localities.Locality_ID
+WHERE (masks.Locale_ID = "9" AND masks.Object_ID < 16)
+;
+
+-- 1 SELECT query that uses an ORDER BY
+
+SELECT masks.Culture_ID 
+FROM masks
+ORDER BY masks.Culture_ID DESC;
+
+-- INSERT query 
+
+INSERT INTO countries (Country_ID, Country)
+VALUES ("4", "Wayne's World")
+;
+
+-- Original before INSERT query
+
+DELETE FROM countries
+WHERE Country_ID = "4";
+
+-- UPDATE query 
+
+UPDATE acquisition_years
+SET Acquisition_Year = 2222
+WHERE Acquisition_Year_ID = 1
+;
+
+-- Original before UPDATE query
+
+UPDATE acquisition_years
+SET Acquisition_Year = 1869
+WHERE Acquisition_Year_ID = 1
+;
+
+
