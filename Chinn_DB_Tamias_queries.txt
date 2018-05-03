@@ -1,0 +1,84 @@
+--1) Write at least 2 SELECT queries that join multiple tables
+
+--Returns a full list of specimens institution abbreviation, county name, sex, and age class joined. The output is ordered by institution, then scientific name, then catalogue number.
+
+SELECT institution.institution, specimen.catNo, specimen.verbatimScientificName, county.county, specimen.locality, sex.sex, ageClass.ageClass1
+FROM specimen
+
+JOIN institution ON specimen.institution_ID=institution.institution_ID 
+JOIN county ON specimen.county_ID=county.county_ID
+JOIN sex ON specimen.sex_ID=sex.sex_ID
+JOIN ageClass ON specimen.ageClass_ID= ageClass.ageClass_ID
+
+ORDER BY institution.institution, verbatimScientificName, catNO;
+
+--Returns list of specimens collected by Christy McCain.
+
+SELECT institution.institution, specimen.catNo, specimen.verbatimScientificName, collector.collector
+FROM specimen
+
+JOIN institution ON specimen.institution_ID=institution.institution_ID 
+JOIN specimen_collector ON specimen.specimen_ID=specimen_collector.specimen_ID
+JOIN collector ON specimen_collector.collector_ID=collector.collector_ID
+
+WHERE collector.collector = "Christy M. McCain";
+
+
+--2) Write at least 1 INSERT INTO query that adds data to a table
+
+--Inserts row into the basin table with 'unknown' as the value for basin and 0 as the basin_ID
+
+INSERT INTO basin (basin_ID,basin)
+VALUES (0,'unknown');
+
+
+--3) Write at least 1 UPDATE query that changes data within a table
+
+--In the specimen table, sets basin_ID to zero where basin_ID is null
+
+UPDATE specimen
+SET basin_ID = 0
+WHERE basin_ID is NULL;
+
+
+--4) Write at least 1 SELECT query that uses a WHERE clause
+
+--Returns all specimens with prserved bacula.
+
+SELECT institution.institution, specimen.catNo, specimen.verbatimScientificName, parts.part
+FROM specimen
+
+JOIN institution ON specimen.institution_ID=institution.institution_ID
+JOIN specimen_parts ON specimen.specimen_ID=specimen_parts.specimen_ID
+JOIN parts ON specimen_parts.part_id=parts.part_id
+
+WHERE parts.part = "baculum";
+
+
+--5) Write at least 1 SELECT query that uses a WHERE and an AND clause
+
+--Returns all Tamias quadrivittatus specimens with bacula.
+
+SELECT institution.institution, specimen.catNo, specimen.verbatimScientificName, parts.part
+FROM specimen
+
+JOIN institution ON specimen.institution_ID=institution.institution_ID
+JOIN specimen_parts ON specimen.specimen_ID=specimen_parts.specimen_ID
+JOIN parts ON specimen_parts.part_id=parts.part_id
+
+WHERE parts.part = "baculum"
+AND specimen.verbatimScientificName LIKE "%quadrivittatus%";
+
+
+--6) Write at least 1 SELECT query that uses an ORDER BY clause
+
+--Sorts all specimens by basin then by county.
+
+SELECT institution.institution, specimen.catNo, specimen.verbatimScientificName, county.county, basin.basin
+FROM specimen
+
+JOIN institution ON specimen.institution_ID=institution.institution_ID 
+JOIN county ON specimen.county_ID=county.county_ID
+JOIN basin ON specimen.basin_ID=basin.basin_ID
+
+ORDER BY basin.basin, county.county;
