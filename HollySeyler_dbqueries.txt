@@ -1,0 +1,78 @@
+- Write at least 2 SELECT queries that join multiple tables
+
+-- This query combines the title, type, rating, genre, and composer name for the entertainment entries. It is ordered by lowest rating to highest.
+
+
+SELECT entertainment.entertainment_title, entertainment_type.entertainment_type, entertainment.rating, genre.genre, composer.composer_name
+FROM
+entertainment
+
+JOIN 
+entertainment_type ON entertainment.entertainment_type_id = entertainment_type.entertainment_type_id
+JOIN
+genre ON entertainment.genre_id = genre.genre_id
+JOIN
+composer ON entertainment.composer_id = composer.composer_id
+
+ORDER BY entertainment.rating
+
+--This query combines the titles of movies and tv shows and the top three actors associated with it, ordered alphabetically. 
+
+SELECT entertainment.entertainment_title, actor_id.actor_name
+FROM
+entertainment
+
+JOIN
+actors ON entertainment.entertainment_id = actors.entertainment_id
+JOIN
+actor_id ON actors.actor_id = actor_id.actor_id
+
+ORDER BY entertainment.entertainment_title
+
+
+- Write at least 1 INSERT INTO query that adds data to a tables
+
+--This query adds "Rick and Morty" into the entertainment table, or does it? Do these next few in order.
+
+INSERT INTO entertainment (entertainment_id, entertainment_title, entertainment_type_id, release_year, genre_id, soundtrack_id, composer_id, series_order, rating)
+VALUES
+(102, "I'm Pickle Rick", 3, 2013, 6, 0, 0, 1, 10);
+
+*FOR ME, RICK DON'T DO THIS
+DELETE FROM `entertainment` WHERE entertainment_id = 102
+
+
+-Write at least 1 UPDATE query that changes data within a tables
+
+--This query fixes that pesky "I'm Pickle Rick" title to the proper title, "Rick and Morty"
+
+UPDATE entertainment
+SET entertainment_title = "Rick and Morty"
+WHERE entertainment_id = 102;
+
+-Write at least 1 SELECT query that uses a WHERE clause
+
+--This query shows all titles where the genre was adult animation.
+
+SELECT entertainment.entertainment_title 
+FROM entertainment 
+WHERE entertainment.genre_id = 6;
+
+-Write at least 1 SELECT query that uses a WHERE and an AND clause
+
+--This query shows all titles that are sequels (both TV and movies) that were released after 2000. 
+
+SELECT entertainment.entertainment_title 
+FROM entertainment 
+WHERE entertainment.series_order > 1 
+AND entertainment.release_year >2000;
+
+-Write at least 1 SELECT query that uses an ORDER BY clause
+
+--This query shows titles that have a soundtrack, ordered by rating of movie, not rating of soundtrack. 
+
+SELECT entertainment.entertainment_title 
+FROM entertainment 
+WHERE entertainment.soundtrack_id > 0
+ORDER BY entertainment.rating
+
